@@ -1,0 +1,191 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  annotations:
+    kubemacpool.io/transaction-timestamp: "2026-01-29T18:23:03.282523574Z"
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/storage-observed-api-version: v1
+  creationTimestamp: "2025-11-24T17:42:02Z"
+  finalizers:
+  - kubevirt.io/virtualMachineControllerFinalize
+  generation: 11
+  name: centos-stream9-coral-mockingbird-26
+  namespace: openshift-cnv
+  resourceVersion: "1260889"
+  uid: 3bf779c2-3f07-4c58-a6dc-12b103b54a49
+spec:
+  dataVolumeTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: centos-stream9-coral-mockingbird-26-volume
+    spec:
+      sourceRef:
+        kind: DataSource
+        name: centos-stream9
+        namespace: openshift-virtualization-os-images
+      storage:
+        resources:
+          requests:
+            storage: "34144990004"
+        storageClassName: nfs-csi
+  - metadata:
+      creationTimestamp: null
+      name: dv-centos-stream9-coral-mockingbird-26-disk-rose-parrot-97wgdu
+    spec:
+      source:
+        blank: {}
+      storage:
+        accessModes:
+        - ReadWriteMany
+        resources:
+          requests:
+            storage: 3Gi
+        storageClassName: nfs-csi
+        volumeMode: Filesystem
+  - metadata:
+      creationTimestamp: null
+      name: dv-centos-stream9-coral-mockingbird-26-disk-azure-haddoc-eitv14
+    spec:
+      source:
+        blank: {}
+      storage:
+        accessModes:
+        - ReadWriteMany
+        resources:
+          requests:
+            storage: 2Gi
+        storageClassName: nfs-csi
+        volumeMode: Filesystem
+  - metadata:
+      creationTimestamp: null
+      name: dv-centos-stream9-coral-mockingbird-26-disk-blush-elk-96-kqpjte
+    spec:
+      source:
+        blank: {}
+      storage:
+        accessModes:
+        - ReadWriteMany
+        resources:
+          requests:
+            storage: 30Gi
+        storageClassName: nfs-csi
+        volumeMode: Filesystem
+  instancetype:
+    kind: VirtualMachineClusterInstancetype
+    name: u1.xlarge
+    revisionName: centos-stream9-coral-mockingbird-26-u1.xlarge-v1beta1-1ebab5f7-a2ad-4d4f-bea7-811bb7ee3dfb-1
+  preference:
+    kind: virtualmachineclusterpreference
+    name: centos.stream9
+    revisionName: centos-stream9-coral-mockingbird-26-centos.stream9-v1beta1-67a12b99-1766-496d-b221-15cd088ea21d-1
+  runStrategy: Halted
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        network.kubevirt.io/headlessService: headless
+    spec:
+      architecture: amd64
+      domain:
+        devices:
+          autoattachPodInterface: false
+          disks:
+          - disk:
+              bus: virtio
+            name: disk-rose-parrot-95
+          - disk:
+              bus: virtio
+            name: disk-azure-haddock-29
+          - disk:
+              bus: virtio
+            name: disk-blush-elk-96
+          interfaces:
+          - macAddress: 02:f3:f3:00:00:03
+            masquerade: {}
+            name: default
+        firmware:
+          uuid: 708b0ed1-e901-50ee-bc8c-ae1329edefa7
+        machine:
+          type: pc-q35-rhel9.4.0
+        resources: {}
+      networks:
+      - name: default
+        pod: {}
+      subdomain: headless
+      volumes:
+      - dataVolume:
+          name: centos-stream9-coral-mockingbird-26-volume
+        name: rootdisk
+      - cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            chpasswd:
+              expire: false
+            password: changeme
+            user: centos
+        name: cloudinitdisk
+      - dataVolume:
+          name: dv-centos-stream9-coral-mockingbird-26-disk-rose-parrot-97wgdu
+        name: disk-rose-parrot-95
+      - dataVolume:
+          name: dv-centos-stream9-coral-mockingbird-26-disk-azure-haddoc-eitv14
+        name: disk-azure-haddock-29
+      - dataVolume:
+          name: dv-centos-stream9-coral-mockingbird-26-disk-blush-elk-96-kqpjte
+        name: disk-blush-elk-96
+status:
+  conditions:
+  - lastProbeTime: "2026-01-27T19:34:13Z"
+    lastTransitionTime: "2026-01-27T19:34:13Z"
+    message: VMI does not exist
+    reason: VMINotExists
+    status: "False"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    message: All of the VMI's DVs are bound and not running
+    reason: AllDVsReady
+    status: "True"
+    type: DataVolumesReady
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: LiveMigratable
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: StorageLiveMigratable
+  desiredGeneration: 7
+  instancetypeRef:
+    controllerRevisionRef:
+      name: centos-stream9-coral-mockingbird-26-u1.xlarge-v1beta1-1ebab5f7-a2ad-4d4f-bea7-811bb7ee3dfb-1
+    kind: VirtualMachineClusterInstancetype
+    name: u1.xlarge
+  observedGeneration: 7
+  preferenceRef:
+    controllerRevisionRef:
+      name: centos-stream9-coral-mockingbird-26-centos.stream9-v1beta1-67a12b99-1766-496d-b221-15cd088ea21d-1
+    kind: virtualmachineclusterpreference
+    name: centos.stream9
+  printableStatus: Stopped
+  runStrategy: Halted
+  volumeSnapshotStatuses:
+  - enabled: false
+    name: rootdisk
+    reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+      StorageClass [nfs-csi] [rootdisk]'
+  - enabled: false
+    name: cloudinitdisk
+    reason: Snapshot is not supported for this volumeSource type [cloudinitdisk]
+  - enabled: false
+    name: disk-rose-parrot-95
+    reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+      StorageClass [nfs-csi] [disk-rose-parrot-95]'
+  - enabled: false
+    name: disk-azure-haddock-29
+    reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+      StorageClass [nfs-csi] [disk-azure-haddock-29]'
+  - enabled: false
+    name: disk-blush-elk-96
+    reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+      StorageClass [nfs-csi] [disk-blush-elk-96]'

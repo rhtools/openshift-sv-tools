@@ -1,0 +1,705 @@
+apiVersion: v1
+items:
+- apiVersion: kubevirt.io/v1
+  kind: VirtualMachine
+  metadata:
+    annotations:
+      kubemacpool.io/transaction-timestamp: "2026-01-29T18:23:03.282523574Z"
+      kubevirt.io/latest-observed-api-version: v1
+      kubevirt.io/storage-observed-api-version: v1
+    creationTimestamp: "2025-11-24T17:42:02Z"
+    finalizers:
+    - kubevirt.io/virtualMachineControllerFinalize
+    generation: 11
+    name: centos-stream9-coral-mockingbird-26
+    namespace: openshift-cnv
+    resourceVersion: "1260889"
+    uid: 3bf779c2-3f07-4c58-a6dc-12b103b54a49
+  spec:
+    dataVolumeTemplates:
+    - metadata:
+        creationTimestamp: null
+        name: centos-stream9-coral-mockingbird-26-volume
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: centos-stream9
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources:
+            requests:
+              storage: "34144990004"
+          storageClassName: nfs-csi
+    - metadata:
+        creationTimestamp: null
+        name: dv-centos-stream9-coral-mockingbird-26-disk-rose-parrot-97wgdu
+      spec:
+        source:
+          blank: {}
+        storage:
+          accessModes:
+          - ReadWriteMany
+          resources:
+            requests:
+              storage: 3Gi
+          storageClassName: nfs-csi
+          volumeMode: Filesystem
+    - metadata:
+        creationTimestamp: null
+        name: dv-centos-stream9-coral-mockingbird-26-disk-azure-haddoc-eitv14
+      spec:
+        source:
+          blank: {}
+        storage:
+          accessModes:
+          - ReadWriteMany
+          resources:
+            requests:
+              storage: 2Gi
+          storageClassName: nfs-csi
+          volumeMode: Filesystem
+    - metadata:
+        creationTimestamp: null
+        name: dv-centos-stream9-coral-mockingbird-26-disk-blush-elk-96-kqpjte
+      spec:
+        source:
+          blank: {}
+        storage:
+          accessModes:
+          - ReadWriteMany
+          resources:
+            requests:
+              storage: 30Gi
+          storageClassName: nfs-csi
+          volumeMode: Filesystem
+    instancetype:
+      kind: VirtualMachineClusterInstancetype
+      name: u1.xlarge
+      revisionName: centos-stream9-coral-mockingbird-26-u1.xlarge-v1beta1-1ebab5f7-a2ad-4d4f-bea7-811bb7ee3dfb-1
+    preference:
+      kind: virtualmachineclusterpreference
+      name: centos.stream9
+      revisionName: centos-stream9-coral-mockingbird-26-centos.stream9-v1beta1-67a12b99-1766-496d-b221-15cd088ea21d-1
+    runStrategy: Halted
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          network.kubevirt.io/headlessService: headless
+      spec:
+        architecture: amd64
+        domain:
+          devices:
+            autoattachPodInterface: false
+            disks:
+            - disk:
+                bus: virtio
+              name: disk-rose-parrot-95
+            - disk:
+                bus: virtio
+              name: disk-azure-haddock-29
+            - disk:
+                bus: virtio
+              name: disk-blush-elk-96
+            interfaces:
+            - macAddress: 02:f3:f3:00:00:03
+              masquerade: {}
+              name: default
+          firmware:
+            uuid: 708b0ed1-e901-50ee-bc8c-ae1329edefa7
+          machine:
+            type: pc-q35-rhel9.4.0
+          resources: {}
+        networks:
+        - name: default
+          pod: {}
+        subdomain: headless
+        volumes:
+        - dataVolume:
+            name: centos-stream9-coral-mockingbird-26-volume
+          name: rootdisk
+        - cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              chpasswd:
+                expire: false
+              password: changeme
+              user: centos
+          name: cloudinitdisk
+        - dataVolume:
+            name: dv-centos-stream9-coral-mockingbird-26-disk-rose-parrot-97wgdu
+          name: disk-rose-parrot-95
+        - dataVolume:
+            name: dv-centos-stream9-coral-mockingbird-26-disk-azure-haddoc-eitv14
+          name: disk-azure-haddock-29
+        - dataVolume:
+            name: dv-centos-stream9-coral-mockingbird-26-disk-blush-elk-96-kqpjte
+          name: disk-blush-elk-96
+  status:
+    conditions:
+    - lastProbeTime: "2026-01-27T19:34:13Z"
+      lastTransitionTime: "2026-01-27T19:34:13Z"
+      message: VMI does not exist
+      reason: VMINotExists
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      message: All of the VMI's DVs are bound and not running
+      reason: AllDVsReady
+      status: "True"
+      type: DataVolumesReady
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: LiveMigratable
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: StorageLiveMigratable
+    desiredGeneration: 7
+    instancetypeRef:
+      controllerRevisionRef:
+        name: centos-stream9-coral-mockingbird-26-u1.xlarge-v1beta1-1ebab5f7-a2ad-4d4f-bea7-811bb7ee3dfb-1
+      kind: VirtualMachineClusterInstancetype
+      name: u1.xlarge
+    observedGeneration: 7
+    preferenceRef:
+      controllerRevisionRef:
+        name: centos-stream9-coral-mockingbird-26-centos.stream9-v1beta1-67a12b99-1766-496d-b221-15cd088ea21d-1
+      kind: virtualmachineclusterpreference
+      name: centos.stream9
+    printableStatus: Stopped
+    runStrategy: Halted
+    volumeSnapshotStatuses:
+    - enabled: false
+      name: rootdisk
+      reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+        StorageClass [nfs-csi] [rootdisk]'
+    - enabled: false
+      name: cloudinitdisk
+      reason: Snapshot is not supported for this volumeSource type [cloudinitdisk]
+    - enabled: false
+      name: disk-rose-parrot-95
+      reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+        StorageClass [nfs-csi] [disk-rose-parrot-95]'
+    - enabled: false
+      name: disk-azure-haddock-29
+      reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+        StorageClass [nfs-csi] [disk-azure-haddock-29]'
+    - enabled: false
+      name: disk-blush-elk-96
+      reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+        StorageClass [nfs-csi] [disk-blush-elk-96]'
+- apiVersion: kubevirt.io/v1
+  kind: VirtualMachine
+  metadata:
+    annotations:
+      kubemacpool.io/transaction-timestamp: "2026-01-27T23:23:53.642215509Z"
+      kubevirt.io/latest-observed-api-version: v1
+      kubevirt.io/storage-observed-api-version: v1
+      vm.kubevirt.io/validations: |
+        [
+          {
+            "name": "minimal-required-memory",
+            "path": "jsonpath::.spec.domain.memory.guest",
+            "rule": "integer",
+            "message": "This VM requires more memory.",
+            "min": 1610612736
+          }
+        ]
+    creationTimestamp: "2025-11-25T00:20:13Z"
+    finalizers:
+    - kubevirt.io/virtualMachineControllerFinalize
+    generation: 2
+    labels:
+      app: centos-stream9-emerald-leopard-15
+      kubevirt.io/dynamic-credentials-support: "true"
+      vm.kubevirt.io/template: centos-stream9-server-small
+      vm.kubevirt.io/template.namespace: openshift
+      vm.kubevirt.io/template.revision: "1"
+      vm.kubevirt.io/template.version: v0.32.2
+    name: centos-stream9-emerald-leopard-15
+    namespace: openshift-cnv
+    resourceVersion: "1124333"
+    uid: ed58d191-0535-47ad-8c71-e618c3a5d5df
+  spec:
+    dataVolumeTemplates:
+    - apiVersion: cdi.kubevirt.io/v1beta1
+      kind: DataVolume
+      metadata:
+        creationTimestamp: null
+        name: centos-stream9-emerald-leopard-15
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: centos-stream9
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources:
+            requests:
+              storage: 30Gi
+    runStrategy: RerunOnFailure
+    template:
+      metadata:
+        annotations:
+          vm.kubevirt.io/flavor: small
+          vm.kubevirt.io/os: centos-stream9
+          vm.kubevirt.io/workload: server
+        creationTimestamp: null
+        labels:
+          kubevirt.io/domain: centos-stream9-emerald-leopard-15
+          kubevirt.io/size: small
+          network.kubevirt.io/headlessService: headless
+      spec:
+        architecture: amd64
+        domain:
+          cpu:
+            cores: 1
+            sockets: 3
+            threads: 1
+          devices:
+            disks:
+            - disk:
+                bus: virtio
+              name: rootdisk
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+            interfaces:
+            - macAddress: 02:f3:f3:00:00:05
+              masquerade: {}
+              model: virtio
+              name: default
+            rng: {}
+          firmware:
+            uuid: 1b8517c8-b0f5-5d57-a3e9-ac16d5516ef0
+          machine:
+            type: pc-q35-rhel9.4.0
+          memory:
+            guest: 5Gi
+          resources: {}
+        networks:
+        - name: default
+          pod: {}
+        terminationGracePeriodSeconds: 180
+        volumes:
+        - dataVolume:
+            name: centos-stream9-emerald-leopard-15
+          name: rootdisk
+        - cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              user: centos
+              password: changeme
+              chpasswd: { expire: False }
+          name: cloudinitdisk
+  status:
+    conditions:
+    - lastProbeTime: "2026-01-27T19:34:17Z"
+      lastTransitionTime: "2026-01-27T19:34:17Z"
+      message: VMI does not exist
+      reason: VMINotExists
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      message: All of the VMI's DVs are bound and not running
+      reason: AllDVsReady
+      status: "True"
+      type: DataVolumesReady
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: LiveMigratable
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: StorageLiveMigratable
+    desiredGeneration: 1
+    observedGeneration: 1
+    printableStatus: Stopped
+    runStrategy: RerunOnFailure
+    volumeSnapshotStatuses:
+    - enabled: false
+      name: rootdisk
+      reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+        StorageClass [nfs-csi] [rootdisk]'
+    - enabled: false
+      name: cloudinitdisk
+      reason: Snapshot is not supported for this volumeSource type [cloudinitdisk]
+- apiVersion: kubevirt.io/v1
+  kind: VirtualMachine
+  metadata:
+    annotations:
+      kubemacpool.io/transaction-timestamp: "2026-01-27T23:23:53.561888971Z"
+      kubevirt.io/latest-observed-api-version: v1
+      kubevirt.io/storage-observed-api-version: v1
+    creationTimestamp: "2025-11-24T17:35:17Z"
+    finalizers:
+    - kubevirt.io/virtualMachineControllerFinalize
+    generation: 4
+    name: fedora-silver-mandrill-52
+    namespace: openshift-cnv
+    resourceVersion: "1124331"
+    uid: 41850a2d-2844-48db-a3e7-2414a10131f5
+  spec:
+    dataVolumeTemplates:
+    - metadata:
+        creationTimestamp: null
+        name: fedora-silver-mandrill-52-volume
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: fedora
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources:
+            requests:
+              storage: "34144990004"
+          storageClassName: nfs-csi
+    instancetype:
+      kind: virtualmachineclusterinstancetype
+      name: u1.small
+      revisionName: fedora-silver-mandrill-52-u1.small-v1beta1-42d13c0c-5658-4d9b-8181-70713cffa11a-1
+    preference:
+      kind: virtualmachineclusterpreference
+      name: fedora
+      revisionName: fedora-silver-mandrill-52-fedora-v1beta1-106d06d0-b5e4-47ed-a212-1fe2396d42dd-1
+    runStrategy: Halted
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          network.kubevirt.io/headlessService: headless
+      spec:
+        architecture: amd64
+        domain:
+          devices:
+            autoattachPodInterface: false
+            interfaces:
+            - macAddress: 02:f3:f3:00:00:01
+              masquerade: {}
+              name: default
+          firmware:
+            uuid: 5be95e9e-a7fe-5194-b71d-263750217e3f
+          machine:
+            type: pc-q35-rhel9.4.0
+          resources: {}
+        networks:
+        - name: default
+          pod: {}
+        subdomain: headless
+        volumes:
+        - dataVolume:
+            name: fedora-silver-mandrill-52-volume
+          name: rootdisk
+        - cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              chpasswd:
+                expire: false
+              password: changeme
+              user: fedora
+          name: cloudinitdisk
+  status:
+    conditions:
+    - lastProbeTime: "2026-01-27T19:30:44Z"
+      lastTransitionTime: "2026-01-27T19:30:44Z"
+      message: VMI does not exist
+      reason: VMINotExists
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      message: All of the VMI's DVs are bound and not running
+      reason: AllDVsReady
+      status: "True"
+      type: DataVolumesReady
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: LiveMigratable
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: StorageLiveMigratable
+    desiredGeneration: 3
+    instancetypeRef:
+      controllerRevisionRef:
+        name: fedora-silver-mandrill-52-u1.small-v1beta1-42d13c0c-5658-4d9b-8181-70713cffa11a-1
+      kind: virtualmachineclusterinstancetype
+      name: u1.small
+    observedGeneration: 3
+    preferenceRef:
+      controllerRevisionRef:
+        name: fedora-silver-mandrill-52-fedora-v1beta1-106d06d0-b5e4-47ed-a212-1fe2396d42dd-1
+      kind: virtualmachineclusterpreference
+      name: fedora
+    printableStatus: Stopped
+    runStrategy: Halted
+    volumeSnapshotStatuses:
+    - enabled: false
+      name: rootdisk
+      reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+        StorageClass [nfs-csi] [rootdisk]'
+    - enabled: false
+      name: cloudinitdisk
+      reason: Snapshot is not supported for this volumeSource type [cloudinitdisk]
+- apiVersion: kubevirt.io/v1
+  kind: VirtualMachine
+  metadata:
+    annotations:
+      kubemacpool.io/transaction-timestamp: "2026-01-27T23:23:53.691221075Z"
+      kubevirt.io/latest-observed-api-version: v1
+      kubevirt.io/storage-observed-api-version: v1
+    creationTimestamp: "2025-11-24T17:42:20Z"
+    finalizers:
+    - kubevirt.io/virtualMachineControllerFinalize
+    generation: 10
+    name: rhel-10-yellow-marmot-71
+    namespace: openshift-cnv
+    resourceVersion: "1124337"
+    uid: e3bd3ff7-9c07-4eec-b814-7e83adfee548
+  spec:
+    dataVolumeTemplates:
+    - metadata:
+        creationTimestamp: null
+        name: rhel-10-yellow-marmot-71-volume
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: rhel10
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources:
+            requests:
+              storage: "34144990004"
+          storageClassName: nfs-csi
+    instancetype:
+      kind: VirtualMachineClusterInstancetype
+      name: u1.large
+      revisionName: rhel-10-yellow-marmot-71-u1.large-v1beta1-61945ed7-b27f-4942-b72e-050699a411e6-1
+    preference:
+      kind: virtualmachineclusterpreference
+      name: rhel.10
+      revisionName: rhel-10-yellow-marmot-71-rhel.10-v1beta1-23959aa9-fb34-40e3-84c0-3073c880b1a6-1
+    runStrategy: Halted
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          network.kubevirt.io/headlessService: headless
+      spec:
+        architecture: amd64
+        domain:
+          devices:
+            autoattachPodInterface: false
+            interfaces:
+            - macAddress: 02:f3:f3:00:00:04
+              masquerade: {}
+              name: default
+          firmware:
+            uuid: bb682671-c4b2-59b0-a425-85706e0b632b
+          machine:
+            type: pc-q35-rhel9.4.0
+          resources: {}
+        networks:
+        - name: default
+          pod: {}
+        subdomain: headless
+        volumes:
+        - dataVolume:
+            name: rhel-10-yellow-marmot-71-volume
+          name: rootdisk
+        - cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              chpasswd:
+                expire: false
+              password: changeme
+              user: rhel
+          name: cloudinitdisk
+  status:
+    conditions:
+    - lastProbeTime: "2026-01-27T19:34:22Z"
+      lastTransitionTime: "2026-01-27T19:34:22Z"
+      message: VMI does not exist
+      reason: VMINotExists
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      message: All of the VMI's DVs are bound and not running
+      reason: AllDVsReady
+      status: "True"
+      type: DataVolumesReady
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: LiveMigratable
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: StorageLiveMigratable
+    desiredGeneration: 9
+    instancetypeRef:
+      controllerRevisionRef:
+        name: rhel-10-yellow-marmot-71-u1.large-v1beta1-61945ed7-b27f-4942-b72e-050699a411e6-1
+      kind: VirtualMachineClusterInstancetype
+      name: u1.large
+    observedGeneration: 9
+    preferenceRef:
+      controllerRevisionRef:
+        name: rhel-10-yellow-marmot-71-rhel.10-v1beta1-23959aa9-fb34-40e3-84c0-3073c880b1a6-1
+      kind: virtualmachineclusterpreference
+      name: rhel.10
+    printableStatus: Stopped
+    runStrategy: Halted
+    volumeSnapshotStatuses:
+    - enabled: false
+      name: rootdisk
+      reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+        StorageClass [nfs-csi] [rootdisk]'
+    - enabled: false
+      name: cloudinitdisk
+      reason: Snapshot is not supported for this volumeSource type [cloudinitdisk]
+- apiVersion: kubevirt.io/v1
+  kind: VirtualMachine
+  metadata:
+    annotations:
+      kubemacpool.io/transaction-timestamp: "2026-01-27T23:23:53.708853255Z"
+      kubevirt.io/latest-observed-api-version: v1
+      kubevirt.io/storage-observed-api-version: v1
+      vm.kubevirt.io/validations: |
+        [
+          {
+            "name": "minimal-required-memory",
+            "path": "jsonpath::.spec.domain.memory.guest",
+            "rule": "integer",
+            "message": "This VM requires more memory.",
+            "min": 1610612736
+          }
+        ]
+    creationTimestamp: "2025-11-25T00:19:22Z"
+    finalizers:
+    - kubevirt.io/virtualMachineControllerFinalize
+    generation: 2
+    labels:
+      app: rhel8-gold-rooster-20
+      vm.kubevirt.io/template: rhel8-server-small
+      vm.kubevirt.io/template.namespace: openshift
+      vm.kubevirt.io/template.revision: "1"
+      vm.kubevirt.io/template.version: v0.32.2
+    name: rhel8-gold-rooster-20
+    namespace: openshift-cnv
+    resourceVersion: "1124335"
+    uid: 72258706-2e96-4c12-8100-44f8ad64cd8d
+  spec:
+    dataVolumeTemplates:
+    - apiVersion: cdi.kubevirt.io/v1beta1
+      kind: DataVolume
+      metadata:
+        creationTimestamp: null
+        name: rhel8-gold-rooster-20
+      spec:
+        sourceRef:
+          kind: DataSource
+          name: rhel8
+          namespace: openshift-virtualization-os-images
+        storage:
+          resources:
+            requests:
+              storage: 30Gi
+    runStrategy: RerunOnFailure
+    template:
+      metadata:
+        annotations:
+          vm.kubevirt.io/flavor: small
+          vm.kubevirt.io/os: rhel8
+          vm.kubevirt.io/workload: server
+        creationTimestamp: null
+        labels:
+          kubevirt.io/domain: rhel8-gold-rooster-20
+          kubevirt.io/size: small
+          network.kubevirt.io/headlessService: headless
+      spec:
+        architecture: amd64
+        domain:
+          cpu:
+            cores: 1
+            sockets: 2
+            threads: 1
+          devices:
+            disks:
+            - disk:
+                bus: virtio
+              name: rootdisk
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+            interfaces:
+            - macAddress: 02:f3:f3:00:00:00
+              masquerade: {}
+              model: virtio
+              name: default
+            rng: {}
+          firmware:
+            uuid: 13c2b093-2e8b-5ba2-aadf-656bf5c4cd93
+          machine:
+            type: pc-q35-rhel9.4.0
+          memory:
+            guest: 3Gi
+          resources: {}
+        networks:
+        - name: default
+          pod: {}
+        terminationGracePeriodSeconds: 180
+        volumes:
+        - dataVolume:
+            name: rhel8-gold-rooster-20
+          name: rootdisk
+        - cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              user: cloud-user
+              password: changeme
+              chpasswd: { expire: False }
+          name: cloudinitdisk
+  status:
+    conditions:
+    - lastProbeTime: "2026-01-27T19:30:49Z"
+      lastTransitionTime: "2026-01-27T19:30:49Z"
+      message: VMI does not exist
+      reason: VMINotExists
+      status: "False"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: null
+      message: All of the VMI's DVs are bound and not running
+      reason: AllDVsReady
+      status: "True"
+      type: DataVolumesReady
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: LiveMigratable
+    - lastProbeTime: null
+      lastTransitionTime: null
+      status: "True"
+      type: StorageLiveMigratable
+    desiredGeneration: 1
+    observedGeneration: 1
+    printableStatus: Stopped
+    runStrategy: RerunOnFailure
+    volumeSnapshotStatuses:
+    - enabled: false
+      name: rootdisk
+      reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+        StorageClass [nfs-csi] [rootdisk]'
+    - enabled: false
+      name: cloudinitdisk
+      reason: Snapshot is not supported for this volumeSource type [cloudinitdisk]
+kind: List
+metadata:
+  resourceVersion: ""

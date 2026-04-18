@@ -1,0 +1,151 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  name: example-vm-1
+  namespace: openshift-cnv
+spec:
+  architecture: amd64
+  domain:
+    cpu:
+      cores: 1
+      sockets: 3
+      threads: 1
+    devices:
+      disks:
+      - disk:
+          bus: virtio
+        name: rootdisk
+      - disk:
+          bus: virtio
+        name: cloudinitdisk
+      interfaces:
+      - macAddress: 02:f3:f3:00:00:05
+        masquerade: {}
+        model: virtio
+        name: default
+      - macAddress: 02:f3:f3:00:00:06
+        bridge: {}
+        model: virtio
+        name: bridge-storage
+      - macAddress: 02:f3:f3:00:00:07
+        bridge: {}
+        model: virtio
+        name: bridge-migration
+    firmware:
+      uuid: 1b8517c8-b0f5-5d57-a3e9-ac16d5516ef0
+    machine:
+      type: pc-q35-rhel9.4.0
+    memory:
+      guest: 5Gi
+  networks:
+  - name: default
+    pod: {}
+  - name: bridge-storage
+    multus:
+      networkName: bridge-storage
+  - name: bridge-migration
+    multus:
+      networkName: bridge-migration
+  terminationGracePeriodSeconds: 180
+  volumes:
+  - dataVolume:
+      name: example-vm-1
+    name: rootdisk
+  - cloudInitNoCloud:
+      userData: |-
+        #cloud-config
+        user: centos
+        password: changeme
+        chpasswd: { expire: False }
+    name: cloudinitdisk
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  name: example-vm-2
+  namespace: openshift-cnv
+spec:
+  architecture: amd64
+  domain:
+    devices:
+      autoattachPodInterface: false
+      interfaces:
+      - macAddress: 02:f3:f3:00:00:01
+        masquerade: {}
+        name: default
+      - macAddress: 02:f3:f3:00:00:08
+        bridge: {}
+        model: virtio
+        name: bridge-backup
+    firmware:
+      uuid: 5be95e9e-a7fe-5194-b71d-263750217e3f
+    machine:
+      type: pc-q35-rhel9.4.0
+  networks:
+  - name: default
+    pod: {}
+  - name: bridge-backup
+    multus:
+      networkName: bridge-backup
+  subdomain: headless
+  volumes:
+  - dataVolume:
+      name: example-vm-2-volume
+    name: rootdisk
+  - cloudInitNoCloud:
+      userData: |
+        #cloud-config
+        chpasswd:
+          expire: false
+        password: changeme
+        user: fedora
+    name: cloudinitdisk
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  name: example-vm-3
+  namespace: openshift-cnv
+spec:
+  architecture: amd64
+  domain:
+    devices:
+      autoattachPodInterface: false
+      interfaces:
+      - macAddress: 02:f3:f3:00:00:04
+        masquerade: {}
+        name: default
+      - macAddress: 02:f3:f3:00:00:09
+        bridge: {}
+        model: virtio
+        name: bridge-storage
+      - macAddress: 02:f3:f3:00:00:0a
+        bridge: {}
+        model: virtio
+        name: bridge-backup
+    firmware:
+      uuid: bb682671-c4b2-59b0-a425-85706e0b632b
+    machine:
+      type: pc-q35-rhel9.4.0
+  networks:
+  - name: default
+    pod: {}
+  - name: bridge-storage
+    multus:
+      networkName: bridge-storage
+  - name: bridge-backup
+    multus:
+      networkName: bridge-backup
+  subdomain: headless
+  volumes:
+  - dataVolume:
+      name: example-vm-3-volume
+    name: rootdisk
+  - cloudInitNoCloud:
+      userData: |
+        #cloud-config
+        chpasswd:
+          expire: false
+        password: changeme
+        user: rhel
+    name: cloudinitdisk

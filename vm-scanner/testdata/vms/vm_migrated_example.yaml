@@ -1,0 +1,100 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  annotations:
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/storage-observed-api-version: v1
+  creationTimestamp: "2025-11-18T08:14:44Z"
+  finalizers:
+  - kubevirt.io/virtualMachineControllerFinalize
+  generation: 1
+  labels:
+    migration: test-migration-id
+    plan: test-plan-id
+    vmID: vm-test-001
+  name: test-vm-migrated
+  namespace: test-namespace
+  resourceVersion: "1234567"
+  uid: 00000000-0000-0000-0000-000000000001
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: test-vm-migrated
+    spec:
+      architecture: amd64
+      domain:
+        clock:
+          timezone: UTC
+        cpu:
+          cores: 1
+          sockets: 1
+        devices:
+          disks:
+          - bootOrder: 1
+            disk:
+              bus: virtio
+            name: vol-0
+          - disk:
+              bus: virtio
+            name: vol-1
+          inputs:
+          - bus: virtio
+            name: tablet
+            type: tablet
+          interfaces:
+          - bridge: {}
+            macAddress: 02:00:00:00:00:01
+            model: virtio
+            name: net-0
+        firmware:
+          bootloader:
+            bios: {}
+          serial: 00000000-0000-0000-0000-000000000002
+        machine:
+          type: pc-q35-rhel9.4.0
+        memory:
+          guest: 4Gi
+        resources: {}
+      networks:
+      - multus:
+          networkName: default/test-vlan
+        name: net-0
+      volumes:
+      - name: vol-0
+        persistentVolumeClaim:
+          claimName: test-vm-disk-0
+      - name: vol-1
+        persistentVolumeClaim:
+          claimName: test-vm-disk-1
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2025-11-18T08:14:54Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: LiveMigratable
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: StorageLiveMigratable
+  - lastProbeTime: "2025-11-18T08:15:57Z"
+    lastTransitionTime: null
+    status: "True"
+    type: AgentConnected
+  created: true
+  desiredGeneration: 1
+  observedGeneration: 1
+  printableStatus: Running
+  ready: true
+  runStrategy: Always
+  volumeSnapshotStatuses:
+  - enabled: true
+    name: vol-0
+  - enabled: true
+    name: vol-1

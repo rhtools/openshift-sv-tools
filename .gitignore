@@ -1,0 +1,55 @@
+# Kubeconfig and credentials
+kubeconfig*
+kubectl
+
+# Build artifacts
+vm-scanner/build/
+vm-scanner/main
+vm-scanner/vm-scanner
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Generated reports and outputs
+baseline_outputs/
+test_outputs/
+vm-scanner/comprehensive-report*
+vm-scanner/._*
+vm-scanner/.~lock.*
+
+# IDE and editor config
+.cursor/
+.clinerules
+.vscode/
+*.swp
+*.swo
+*~
+
+# Memory bank and agent files
+activeContext.md
+.buddy/
+
+# Stray reports in project root
+*.xlsx
+*.csv
+
+# Diagrams and scratch files
+vm-scanner-flow.excalidraw
+example_with_pvc.yaml
+vm_from_*
+vm-scanner/archived_*.yaml
+
+# Internal dev docs (not for public release)
+vm-scanner/CHANGES_phase1.md
+vm-scanner/CHANGES_phase2.md
+vm-scanner/CHANGES_phase3.md
+vm-scanner/CHANGES_phase4.md
+vm-scanner/TASKLOG_phase3.md
+vm-scanner/TASKLOG_phase4.md
+vm-scanner/DEV_README.md
+vm-scanner/REFACTORING_GUIDE.md
+
+# macOS metadata
+.DS_Store
+._*

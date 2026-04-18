@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    cdi.kubevirt.io/createdForDataVolume: test-datavolume-id
+    cdi.kubevirt.io/storage.condition.running: "false"
+    cdi.kubevirt.io/storage.condition.running.message: Import Complete
+    cdi.kubevirt.io/storage.condition.running.reason: Completed
+    cdi.kubevirt.io/storage.contentType: kubevirt
+    cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
+    cdi.kubevirt.io/storage.pod.phase: Succeeded
+    cdi.kubevirt.io/storage.pod.restarts: "0"
+    cdi.kubevirt.io/storage.populator.progress: 100.0%
+    cdi.kubevirt.io/storage.preallocation.requested: "false"
+    cdi.kubevirt.io/storage.usePopulator: "true"
+    forklift.konveyor.io/disk-index: "0"
+    forklift.konveyor.io/disk-source: '[datastore-01] test-vm/test-vm.vmdk'
+    migration: test-migration-id
+    plan: test-plan-id
+    pv.kubernetes.io/bind-completed: "yes"
+    pv.kubernetes.io/bound-by-controller: "yes"
+    vmID: vm-test-001
+    volume.beta.kubernetes.io/storage-provisioner: example.storage.io
+    volume.kubernetes.io/selected-node: test-node-01.example.com
+    volume.kubernetes.io/storage-provisioner: example.storage.io
+  creationTimestamp: "2025-11-18T08:01:48Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    alerts.k8s.io/KubePersistentVolumeFillingUp: disabled
+    app: containerized-data-importer
+    app.kubernetes.io/component: storage
+    app.kubernetes.io/managed-by: cdi-controller
+    app.kubernetes.io/part-of: hyperconverged-cluster
+    app.kubernetes.io/version: 4.18.17
+    migration: test-migration-id
+    plan: test-plan-id
+    vmID: vm-test-001
+  name: test-vm-disk-0
+  namespace: test-namespace
+  ownerReferences:
+  - apiVersion: kubevirt.io/v1
+    blockOwnerDeletion: true
+    controller: false
+    kind: VirtualMachine
+    name: test-vm-migrated
+    uid: 00000000-0000-0000-0000-000000000001
+  resourceVersion: "1234567"
+  uid: 00000000-0000-0000-0000-000000000003
+spec:
+  accessModes:
+  - ReadWriteMany
+  dataSource:
+    apiGroup: cdi.kubevirt.io
+    kind: VolumeImportSource
+    name: volume-import-source-test
+  dataSourceRef:
+    apiGroup: cdi.kubevirt.io
+    kind: VolumeImportSource
+    name: volume-import-source-test
+  resources:
+    requests:
+      storage: "45526653338"
+  storageClassName: example-storage-rwx
+  volumeMode: Filesystem
+  volumeName: pvc-00000000-0000-0000-0000-000000000004
+status:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 43Gi
+  phase: Bound

@@ -1,0 +1,118 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  annotations:
+    kubemacpool.io/transaction-timestamp: "2026-01-27T23:23:53.561888971Z"
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/storage-observed-api-version: v1
+  creationTimestamp: "2025-11-24T17:35:17Z"
+  finalizers:
+  - kubevirt.io/virtualMachineControllerFinalize
+  generation: 4
+  name: fedora-silver-mandrill-52
+  namespace: openshift-cnv
+  resourceVersion: "1124331"
+  uid: 41850a2d-2844-48db-a3e7-2414a10131f5
+spec:
+  dataVolumeTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: fedora-silver-mandrill-52-volume
+    spec:
+      sourceRef:
+        kind: DataSource
+        name: fedora
+        namespace: openshift-virtualization-os-images
+      storage:
+        resources:
+          requests:
+            storage: "34144990004"
+        storageClassName: nfs-csi
+  instancetype:
+    kind: virtualmachineclusterinstancetype
+    name: u1.small
+    revisionName: fedora-silver-mandrill-52-u1.small-v1beta1-42d13c0c-5658-4d9b-8181-70713cffa11a-1
+  preference:
+    kind: virtualmachineclusterpreference
+    name: fedora
+    revisionName: fedora-silver-mandrill-52-fedora-v1beta1-106d06d0-b5e4-47ed-a212-1fe2396d42dd-1
+  runStrategy: Halted
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        network.kubevirt.io/headlessService: headless
+    spec:
+      architecture: amd64
+      domain:
+        devices:
+          autoattachPodInterface: false
+          interfaces:
+          - macAddress: 02:f3:f3:00:00:01
+            masquerade: {}
+            name: default
+        firmware:
+          uuid: 5be95e9e-a7fe-5194-b71d-263750217e3f
+        machine:
+          type: pc-q35-rhel9.4.0
+        resources: {}
+      networks:
+      - name: default
+        pod: {}
+      subdomain: headless
+      volumes:
+      - dataVolume:
+          name: fedora-silver-mandrill-52-volume
+        name: rootdisk
+      - cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            chpasswd:
+              expire: false
+            password: changeme
+            user: fedora
+        name: cloudinitdisk
+status:
+  conditions:
+  - lastProbeTime: "2026-01-27T19:30:44Z"
+    lastTransitionTime: "2026-01-27T19:30:44Z"
+    message: VMI does not exist
+    reason: VMINotExists
+    status: "False"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    message: All of the VMI's DVs are bound and not running
+    reason: AllDVsReady
+    status: "True"
+    type: DataVolumesReady
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: LiveMigratable
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: StorageLiveMigratable
+  desiredGeneration: 3
+  instancetypeRef:
+    controllerRevisionRef:
+      name: fedora-silver-mandrill-52-u1.small-v1beta1-42d13c0c-5658-4d9b-8181-70713cffa11a-1
+    kind: virtualmachineclusterinstancetype
+    name: u1.small
+  observedGeneration: 3
+  preferenceRef:
+    controllerRevisionRef:
+      name: fedora-silver-mandrill-52-fedora-v1beta1-106d06d0-b5e4-47ed-a212-1fe2396d42dd-1
+    kind: virtualmachineclusterpreference
+    name: fedora
+  printableStatus: Stopped
+  runStrategy: Halted
+  volumeSnapshotStatuses:
+  - enabled: false
+    name: rootdisk
+    reason: 'No VolumeSnapshotClass: Volume snapshots are not configured for this
+      StorageClass [nfs-csi] [rootdisk]'
+  - enabled: false
+    name: cloudinitdisk
+    reason: Snapshot is not supported for this volumeSource type [cloudinitdisk]

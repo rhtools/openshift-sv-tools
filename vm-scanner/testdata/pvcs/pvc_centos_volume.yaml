@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    cdi.kubevirt.io/allowClaimAdoption: "true"
+    cdi.kubevirt.io/clonePhase: Succeeded
+    cdi.kubevirt.io/cloneType: copy
+    cdi.kubevirt.io/createdForDataVolume: 347a44cb-0023-4349-9e03-47d0d7ad84be
+    cdi.kubevirt.io/dataSourceNamespace: openshift-virtualization-os-images
+    cdi.kubevirt.io/storage.clone.token: REDACTED
+    cdi.kubevirt.io/storage.condition.running: "false"
+    cdi.kubevirt.io/storage.condition.running.message: Clone Complete
+    cdi.kubevirt.io/storage.condition.running.reason: Completed
+    cdi.kubevirt.io/storage.contentType: kubevirt
+    cdi.kubevirt.io/storage.extended.clone.token: REDACTED
+    cdi.kubevirt.io/storage.pod.restarts: "0"
+    cdi.kubevirt.io/storage.populator.progress: 100.0%
+    cdi.kubevirt.io/storage.preallocation: "true"
+    cdi.kubevirt.io/storage.preallocation.requested: "false"
+    cdi.kubevirt.io/storage.usePopulator: "true"
+    pv.kubernetes.io/bind-completed: "yes"
+    pv.kubernetes.io/bound-by-controller: "yes"
+    volume.beta.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+    volume.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+  creationTimestamp: "2025-11-24T17:42:03Z"
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    alerts.k8s.io/KubePersistentVolumeFillingUp: disabled
+    app: containerized-data-importer
+    app.kubernetes.io/component: storage
+    app.kubernetes.io/managed-by: cdi-controller
+    app.kubernetes.io/part-of: hyperconverged-cluster
+    app.kubernetes.io/version: 4.18.17
+    instancetype.kubevirt.io/default-instancetype: u1.medium
+    instancetype.kubevirt.io/default-preference: centos.stream9
+    kubevirt.io/created-by: 3bf779c2-3f07-4c58-a6dc-12b103b54a49
+  name: centos-stream9-coral-mockingbird-26-volume
+  namespace: openshift-cnv
+  ownerReferences:
+  - apiVersion: cdi.kubevirt.io/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: DataVolume
+    name: centos-stream9-coral-mockingbird-26-volume
+    uid: 347a44cb-0023-4349-9e03-47d0d7ad84be
+  resourceVersion: "161284"
+  uid: de7ea726-e879-4722-a29d-0c7f27becb70
+spec:
+  accessModes:
+  - ReadWriteMany
+  dataSource:
+    apiGroup: cdi.kubevirt.io
+    kind: VolumeCloneSource
+    name: volume-clone-source-347a44cb-0023-4349-9e03-47d0d7ad84be
+  dataSourceRef:
+    apiGroup: cdi.kubevirt.io
+    kind: VolumeCloneSource
+    name: volume-clone-source-347a44cb-0023-4349-9e03-47d0d7ad84be
+  resources:
+    requests:
+      storage: "36194578596"
+  storageClassName: nfs-csi
+  volumeMode: Filesystem
+  volumeName: pvc-622683f9-2679-4f12-ac35-0c6e6ddb03c2
+status:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: "36194578596"
+  phase: Bound

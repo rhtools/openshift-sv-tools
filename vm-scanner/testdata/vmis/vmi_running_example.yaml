@@ -1,0 +1,151 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  annotations:
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/storage-observed-api-version: v1
+  creationTimestamp: "2025-11-18T08:15:00Z"
+  finalizers:
+  - kubevirt.io/virtualMachineInstanceFinalizer
+  generation: 1
+  labels:
+    kubevirt.io/domain: test-vm-running
+    kubevirt.io/nodeName: test-node-01
+  name: test-vm-running
+  namespace: test-namespace
+  ownerReferences:
+  - apiVersion: kubevirt.io/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: VirtualMachine
+    name: test-vm-running
+    uid: 00000000-0000-0000-0000-000000000005
+  resourceVersion: "7654321"
+  uid: 00000000-0000-0000-0000-000000000006
+spec:
+  architecture: amd64
+  domain:
+    clock:
+      timezone: UTC
+      utc: {}
+    cpu:
+      cores: 2
+      model: host-model
+      sockets: 1
+      threads: 1
+    devices:
+      disks:
+      - bootOrder: 1
+        disk:
+          bus: virtio
+        name: vol-0
+      - disk:
+          bus: virtio
+        name: cloudinitdisk
+      inputs:
+      - bus: virtio
+        name: tablet
+        type: tablet
+      interfaces:
+      - bridge: {}
+        macAddress: 02:00:00:00:00:05
+        model: virtio
+        name: default
+    firmware:
+      bootloader:
+        bios: {}
+      serial: 00000000-0000-0000-0000-000000000007
+    machine:
+      type: pc-q35-rhel9.4.0
+    memory:
+      guest: 8Gi
+    resources:
+      limits:
+        cpu: "2"
+        memory: 8Gi
+      requests:
+        cpu: "2"
+        memory: 8Gi
+  networks:
+  - name: default
+    pod: {}
+  nodeName: test-node-01
+  volumes:
+  - name: vol-0
+    persistentVolumeClaim:
+      claimName: test-vm-running-disk-0
+  - cloudInitNoCloud:
+      userData: |
+        #cloud-config
+        user: testuser
+        password: changeme
+        chpasswd: { expire: False }
+    name: cloudinitdisk
+status:
+  activePods:
+    00000000-0000-0000-0000-000000000008: test-node-01
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2025-11-18T08:15:10Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: LiveMigratable
+  - lastProbeTime: "2025-11-18T08:16:00Z"
+    lastTransitionTime: null
+    status: "True"
+    type: AgentConnected
+  guestOSInfo:
+    id: rhel
+    kernelRelease: 5.14.0-362.8.1.el9_3.x86_64
+    kernelVersion: '#1 SMP PREEMPT_DYNAMIC Wed Nov 8 17:15:06 UTC 2023'
+    name: Red Hat Enterprise Linux
+    prettyName: Red Hat Enterprise Linux 9.3 (Plow)
+    version: "9.3"
+    versionId: "9.3"
+  interfaces:
+  - infoSource: domain, guest-agent
+    interfaceName: eth0
+    ipAddress: 10.128.0.50
+    ipAddresses:
+    - 10.128.0.50
+    - fe80::ff:fe00:5
+    mac: 02:00:00:00:00:05
+    name: default
+    queueCount: 1
+  launcherContainerImageVersion: registry.redhat.io/container-native-virtualization/virt-launcher@sha256:abc123
+  migrationMethod: LiveMigration
+  migrationTransport: Unix
+  nodeName: test-node-01
+  phase: Running
+  phaseTransitionTimestamps:
+  - phase: Pending
+    phaseTransitionTimestamp: "2025-11-18T08:15:00Z"
+  - phase: Scheduling
+    phaseTransitionTimestamp: "2025-11-18T08:15:02Z"
+  - phase: Scheduled
+    phaseTransitionTimestamp: "2025-11-18T08:15:03Z"
+  - phase: Running
+    phaseTransitionTimestamp: "2025-11-18T08:15:10Z"
+  qosClass: Guaranteed
+  runtimeUser: 107
+  virtualMachineRevisionName: revision-start-vm-00000000-0000-0000-0000-000000000009
+  volumeStatus:
+  - name: cloudinitdisk
+    size: 1048576
+    target: vdb
+  - name: vol-0
+    persistentVolumeClaimInfo:
+      accessModes:
+      - ReadWriteOnce
+      capacity:
+        storage: 50Gi
+      claimName: test-vm-running-disk-0
+      filesystemOverhead: "0.055"
+      preallocated: false
+      requests:
+        storage: 50Gi
+      volumeMode: Filesystem
+    target: vda

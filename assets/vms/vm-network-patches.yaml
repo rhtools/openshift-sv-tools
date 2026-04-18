@@ -1,0 +1,84 @@
+# VM network patch definitions -- adds secondary interfaces to 3 VMs.
+# These are JSON Merge Patches to be applied via: oc patch vm <name> -n openshift-cnv --type merge -f <this-file>
+#
+# example-vm-1:  bridge-storage + bridge-migration
+# example-vm-2:         bridge-backup
+# example-vm-3:          bridge-storage + bridge-backup
+
+# example-vm-1 -- 3 interfaces (default + storage + migration)
+# Currently Stopped -- patch directly
+- op: add
+  path: /spec/template/spec/domain/devices/interfaces/1
+  value:
+    macAddress: 02:f3:f3:00:00:06
+    model: virtio
+    name: bridge-storage
+    bridge: {}
+- op: add
+  path: /spec/template/spec/networks/1
+  value:
+    name: bridge-storage
+    multus:
+      networkName: bridge-storage
+- op: add
+  path: /spec/template/spec/domain/devices/interfaces/2
+  value:
+    macAddress: 02:f3:f3:00:00:07
+    model: virtio
+    name: bridge-migration
+    bridge: {}
+- op: add
+  path: /spec/template/spec/networks/2
+  value:
+    name: bridge-migration
+    multus:
+      networkName: bridge-migration
+
+---
+
+# example-vm-2 -- 2 interfaces (default + backup)
+# Currently Running -- VM must be stopped first
+- op: add
+  path: /spec/template/spec/domain/devices/interfaces/1
+  value:
+    macAddress: 02:f3:f3:00:00:08
+    model: virtio
+    name: bridge-backup
+    bridge: {}
+- op: add
+  path: /spec/template/spec/networks/1
+  value:
+    name: bridge-backup
+    multus:
+      networkName: bridge-backup
+
+---
+
+# example-vm-3 -- 3 interfaces (default + storage + backup)
+# Currently Running -- VM must be stopped first
+- op: add
+  path: /spec/template/spec/domain/devices/interfaces/1
+  value:
+    macAddress: 02:f3:f3:00:00:09
+    model: virtio
+    name: bridge-storage
+    bridge: {}
+- op: add
+  path: /spec/template/spec/networks/1
+  value:
+    name: bridge-storage
+    multus:
+      networkName: bridge-storage
+- op: add
+  path: /spec/template/spec/domain/devices/interfaces/2
+  value:
+    macAddress: 02:f3:f3:00:00:0a
+    model: virtio
+    name: bridge-backup
+    bridge: {}
+- op: add
+  path: /spec/template/spec/networks/2
+  value:
+    name: bridge-backup
+    multus:
+      networkName: bridge-backup
